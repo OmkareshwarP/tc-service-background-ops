@@ -1,0 +1,41 @@
+{
+  "name": "tc-service-background-ops",
+  "version": "1.0.0",
+  "engines": {
+    "node": "22"
+  },
+  "main": "index.js",
+  "repository": "https://github.com/OmkareshwarP/tc-service-background-ops.git",
+  "author": "OmkareshwarP <omece460@gmail.com>",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "start": "tsc && node ./dist/index.js",
+    "lint": "eslint . --ext .ts",
+    "compile": "npm run lint && tsc",
+    "dev": "cp .env ./dist/.env && npm run compile && node ./dist/index.js",
+    "build": "npm run compile"
+  },
+  "dependencies": {
+    "@sentry/node": "^8.53.0",
+    "@sentry/tracing": "^7.120.3",
+    "ably": "^2.6.2",
+    "axios": "^1.7.7",
+    "cassandra-driver": "^4.7.2",
+    "couchbase": "^4.4.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.2",
+    "nanoid": "^5.0.8",
+    "pino": "^9.5.0",
+    "redis": "^4.7.0",
+    "sharp": "^0.33.5"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.9.0",
+    "@typescript-eslint/eslint-plugin": "^5.58.0",
+    "@typescript-eslint/parser": "^5.58.0",
+    "eslint": "^8.38.0",
+    "typescript": "^4.9.5"
+  }
+}
