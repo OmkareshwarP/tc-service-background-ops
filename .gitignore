@@ -1,0 +1,20 @@
+/node_modules
+.env
+dist
+/dist
+# package-lock.json
+# yarn.lock
+key.json
+
+secure-connect*
+/src/scripts
+/entityData
+*.csv
+*.py
+*.env
+*.query
+.DS_Store
+/images
+*.jsonl
+/tmpDir
+ig_*.ts
