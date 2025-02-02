@@ -10,7 +10,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "start": "tsc && node ./dist/index.js",
+    "start": "node ./dist/index.js",
     "lint": "eslint . --ext .ts",
     "compile": "npm run lint && tsc",
     "dev": "cp .env ./dist/.env && npm run compile && node ./dist/index.js",
