@@ -1,5 +1,5 @@
 import Ably from 'ably';
-import { logData, logError, serviceTypes } from './index.js';
+import { logData, logError } from './index.js';
 import { BgMessageData } from '../typeDefs.js';
 import { postCreatedHandler, postDeletedHandler, postUpdatedHandler, userSignedUpHandler } from '../handlers/index.js';
 
@@ -37,40 +37,40 @@ export const ablySubscribe = () => {
     }
 
     switch (data.messageName) {
-      case serviceTypes.userSignedUp:
+      case "userSignedUp":
         userSignedUpHandler(data)
           .then(() => {
-            logData(`Message processed successfully: ${serviceTypes.userSignedUp}`, 'messageProcessed', 2, JSON.stringify(data));
+            logData(`Message processed successfully: userSignedUp`, 'messageProcessed', 2, JSON.stringify(data));
           })
           .catch((err) => {
-            logError(`Error while processing message: ${serviceTypes.userSignedUp}`, 'messageProcessingError', 5, err);
+            logError(`Error while processing message: userSignedUp`, 'messageProcessingError', 5, err);
           })
         break;
-      case serviceTypes.postCreated:
+      case "postCreated":
         postCreatedHandler(data)
           .then(() => {
-            logData(`Message processed successfully: ${serviceTypes.postCreated}`, 'messageProcessed', 2, JSON.stringify(data));
+            logData(`Message processed successfully: postCreated`, 'messageProcessed', 2, JSON.stringify(data));
           })
           .catch((err) => {
-            logError(`Error while processing message: ${serviceTypes.postCreated}`, 'messageProcessingError', 5, err);
+            logError(`Error while processing message: postCreated`, 'messageProcessingError', 5, err);
           })
         break;
-      case serviceTypes.postUpdated:
+      case "postUpdated":
         postUpdatedHandler(data)
           .then(() => {
-            logData(`Message processed successfully: ${serviceTypes.postUpdated}`, 'messageProcessed', 2, JSON.stringify(data));
+            logData(`Message processed successfully: postUpdated`, 'messageProcessed', 2, JSON.stringify(data));
           })
           .catch((err) => {
-            logError(`Error while processing message: ${serviceTypes.postUpdated}`, 'messageProcessingError', 5, err);
+            logError(`Error while processing message: postUpdated`, 'messageProcessingError', 5, err);
           })
         break;
-      case serviceTypes.postDeleted:
+      case "postDeleted":
         postDeletedHandler(data)
           .then(() => {
-            logData(`Message processed successfully: ${serviceTypes.postDeleted}`, 'messageProcessed', 2, JSON.stringify(data));
+            logData(`Message processed successfully: postDeleted`, 'messageProcessed', 2, JSON.stringify(data));
           })
           .catch((err) => {
-            logError(`Error while processing message: ${serviceTypes.postDeleted}`, 'messageProcessingError', 5, err);
+            logError(`Error while processing message: postDeleted`, 'messageProcessingError', 5, err);
           })
         break;
       default:

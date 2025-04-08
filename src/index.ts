@@ -3,7 +3,10 @@ import express, { Request, Response } from "express";
 import { logError, initializeAbly, loadEnv, ablySubscribe, initializeSentry } from './utils/index.js';
 import { initializeRedis } from './databases/redisUtil.js';
 import path from 'path';
-import { initializeCouchbase } from './databases/couchDBUtil.js';
+import { initializeCronJobs } from './utils/cronUtil.js';
+import { initializeMongoDB } from './databases/mongoUtil.js';
+import { initializeNeo4j } from './databases/neo4jUtil.js';
+import { initializeAstraDB } from './databases/astraUtil.js';
 
 dotenv.config({ path: path.resolve('.env') });
 
@@ -13,8 +16,12 @@ const PORT = process.env.PORT || 4000;
 
 initializeSentry();
 initializeRedis();
-await initializeCouchbase();
+initializeMongoDB();
+await initializeNeo4j();
+await initializeAstraDB();
+// await initializeCouchbase();
 initializeAbly();
+initializeCronJobs();
 
 ablySubscribe();
 

@@ -4,3 +4,5 @@ export * from './ablyUtil.js';
 export * from './timeUtil.js';
 export * from './nanoIdUtil.js';
 export * from './dopplerUtil.js';
+export * from './postUtil.js';
+export * from './userCacheUtil.js';
