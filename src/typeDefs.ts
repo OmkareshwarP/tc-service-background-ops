@@ -1,20 +1,22 @@
+import { PostType, PostVisibility } from "./utils/constant.js";
+
 export interface IUser {
   userId: string;
+  provider: string;
   email: string;
   username: string;
-  provider: string;
   name: string;
   profilePictureMediaId: string;
+  headerPictureMediaId: string;
+  signUpIpv4Address: string;
   moderationStatus: string;
-  verificationStatus: string;
   deletionStatus: string;
-  publicTags: string[];
   internalTags: string[];
   profileLink: string;
+  profileRejectionReasons: string[];
   createdAt: number;
   updatedAt: number;
-  signUpIpv4Address: string;
-  profileRejectionReasons: string[];
+  postCount: number;
 }
 
 export interface BgMessageData {
@@ -38,4 +40,34 @@ export interface AnalyticsEventData {
   actionInputThree?: any;
   actionInputFour?: any;
   actionInputFive?: any;
+}
+
+export interface IPollPost {
+  options: string[];
+  votes: Record<string, number>;
+  startAt: number;
+  endAt: number;
+}
+
+export interface IPost {
+  postId: string;
+  userId: string;
+  content: string;
+  media: string[];
+  postType: PostType;
+  parentPostId?: string;
+  threadParentPostId?: string;
+  repostedPostId?: string;
+  poll?: IPollPost;
+  repostCount: number;
+  engagementScore: number;
+  likes: number;
+  comments: number;
+  bookmarks: number;
+  impressions: number;
+  status: string;
+  postVisibility: PostVisibility;
+  createdAt: number;
+  updatedAt: number;
+  communityId?: string;
 }
