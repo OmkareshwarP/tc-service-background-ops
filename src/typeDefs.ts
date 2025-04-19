@@ -59,7 +59,7 @@ export interface IPost {
   threadParentPostId?: string;
   repostedPostId?: string;
   poll?: IPollPost;
-  repostCount: number;
+  reposts: number;
   engagementScore: number;
   likes: number;
   comments: number;
@@ -69,5 +69,4 @@ export interface IPost {
   postVisibility: PostVisibility;
   createdAt: number;
   updatedAt: number;
-  communityId?: string;
 }
