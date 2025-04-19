@@ -89,7 +89,8 @@ const detectPostCategories = async (content: string, data: BgMessageData) => {
         );
 
         const data = response.data;
-        const categories = data.labels;
+        const topCategory = data.labels[0];
+        const categories = topCategory ? [topCategory] : [];
 
         return categories;
     } catch (error) {
@@ -130,11 +131,19 @@ const updatePostData = async (postData: IPost, hashtags: string[], topics: strin
     const { postId, postType, repostedPostId, parentPostId, userId, comments, reposts, likes, impressions, createdAt } = postData;
 
     try {
+        const _userNodeId = `${neo4jRoot}:${userId}`;
+        const _postNodeId = `${neo4jRoot}:${postId}`;
         await session.run(
-            `MATCH (user:User {id: $userId}), (post:Post {id: $postId})
+            `MATCH (user:User {id: $_userNodeId}), (post:Post {id: $_postNodeId})
             MERGE (user)-[r:CREATED]->(post)
             ON CREATE SET r.createdAt = $createdAt`,
-            { userId, postId, createdAt }
+            { _userNodeId, _postNodeId, createdAt }
+        );
+
+        await session.run(
+            `MATCH (u:User {id: $_userNodeId})
+             SET u.postCount = coalesce(u.postCount, 0) + 1`,
+            { _userNodeId }
         );
 
         if (postType !== PostType.repost) {
