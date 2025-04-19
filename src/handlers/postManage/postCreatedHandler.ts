@@ -12,14 +12,27 @@ export const postCreatedHandler = async (data: BgMessageData) => {
         const postData = await getPostInformationById(entityId);
         // const userData = await getUserInformationByUserId(postData.userId);
 
-        const content = postData.content;
+        if (!postData) {
+            return Promise.reject("post doesn't exists");
+        }
+
+        const content = postData.content?.trim();
         const hashtagRegex = /#([a-zA-Z0-9_]+)/g;
         const mentionRegex = /@([a-zA-Z0-9_]+)/g;
-        const hashtags = [...new Set((content.match(hashtagRegex) || []).map((tag: string) => tag.slice(1)))];
+        const hashtags = [...new Set((content?.match(hashtagRegex) || []).map((tag: string) => tag.slice(1)))];
 
-        const topics = await detectPostCategories(content, data);
-        const category = topics[0];
-        const country = await detectPostCountryCode(actionInputOne, data)
+        let topics = [];
+        let category = null;
+        let country = null;
+
+        if (content && content?.length > 0) {
+            topics = await detectPostCategories(content, data);
+            category = topics[0];
+        }
+
+        if (actionInputOne && actionInputOne?.length > 0) {
+            country = await detectPostCountryCode(actionInputOne, data);
+        }
 
         await updatePostData(postData, hashtags || [], topics || []);
 
